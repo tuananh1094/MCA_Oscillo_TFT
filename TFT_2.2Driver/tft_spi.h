@@ -104,5 +104,6 @@ void Gui_DrawPoint(u16 x,u16 y,u16 Data);
 unsigned int Lcd_ReadPoint(u16 x,u16 y);
 void Lcd_SetRegion(u8 x_start,u8 y_start,u8 x_end,u8 y_end);
 void Lcd_WriteData_16Bit(u16 Data);
+void Lcd_ClearRigion(u8 x, u8 y, u8 pixelx, u8 pixely, u16 color);
 
 #endif

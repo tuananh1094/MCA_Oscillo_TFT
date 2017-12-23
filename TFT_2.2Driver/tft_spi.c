@@ -408,3 +408,13 @@ void Lcd_Clear(u16 Color)
     }   
 }
 
+void Lcd_ClearRigion(u8 x, u8 y, u8 pixelx, u8 pixely, u16 color)
+{
+	unsigned int i,m;
+    Lcd_SetRegion(x+1,y+1,pixelx+x-1,pixely+y-1);
+    for(i=x+1;i<pixelx+x-1;i++)
+    for(m=x+1;m<pixely+y-1;m++)
+    {	
+	  	Lcd_WriteData_16Bit(color);
+    } 
+}

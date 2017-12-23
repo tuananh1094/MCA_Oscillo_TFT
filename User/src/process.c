@@ -38,15 +38,23 @@ void DisplayHomeOscillo(void)
 	Gui_DrawLine(145, 5, 145, 155, GRAY2);
 	Gui_DrawLine(165, 5, 165, 155, GRAY2);
 	
-	Gui_DrawFont_GBK16(5, 156, RED, BLACK, "CH1:");
-	Gui_DrawFont_GBK16(105, 156, GREEN, BLACK, "CH2:00.00V");
+	Gui_DrawFont_GBK16(5, 156, RED, BLACK, "CH1:ON");
+	Gui_DrawFont_GBK16(105, 156, GREEN, BLACK, "CH2:OFF");
 }
 
 void __mainProcess(void)
 {	
-	sprintf(str,"%.4u", adcValue[0]);
-	Gui_DrawFont_GBK16(40, 156, RED, BLACK, str);
-	delay_ms(500);
+	uint16_t i;
+//	sprintf(str,"%.4u", adcValue[0]);
+//	Gui_DrawFont_GBK16(40, 156, RED, BLACK, str);
+	
+	for(i=0; i< LENGHT_ACIS_X; i++)
+	{
+		//Gui_DrawPoint(5+i, LENGHT_ACIS_Y- 70- adcValue[i]/68, RED);
+		Gui_DrawLine(5+i, LENGHT_ACIS_Y- 70- adcValue[i]/68, 5+i, LENGHT_ACIS_Y- 70- adcValue[i+1]/68,RED);
+		//delay_ms(20);
+	}
+	Lcd_ClearRigion(5, 5, 180, 150, BLACK);
 }
 
 

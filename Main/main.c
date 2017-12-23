@@ -10,7 +10,7 @@
 **/
 #include "main.h"
 
-uint16_t adcValue[1];
+uint16_t adcValue[2*LENGHT_ACIS_X];
 uint16_t test, k;
 int main(void)
 {
@@ -27,12 +27,12 @@ int main(void)
 	Lcd_Init();
 	LCD_LED_SET;
 
-	DMA_P2M_ReadHalfWord(DMA1_Channel1, adcValue, (uint32_t)&ADC1->DR, 1);
+	DMA_P2M_ReadHalfWord(DMA1_Channel1, adcValue, (uint32_t)&ADC1->DR, 2*LENGHT_ACIS_X);
 	
 	DisplayHomeOscillo();
 	while(1)
 	{
-		//__mainProcess();
+		__mainProcess();
 
 	}
 }
