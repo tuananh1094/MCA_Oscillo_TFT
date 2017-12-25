@@ -34,7 +34,7 @@ int main(void)
 //	delay_ms(1000);
 //	delay_ms(1000);
 	DisplayHomeOscillo();
-	Lcd_ClearRigion(5, 5, 180, 150, BLACK);
+	Lcd_ClearRigion(7, 7, 176, 146, BLACK);
 	while(1)
 	{
 		__mainProcess();

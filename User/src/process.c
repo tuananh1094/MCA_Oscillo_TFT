@@ -21,22 +21,22 @@ void DisplayHomeOscillo(void)
 	Gui_DrawLine(5, 155, 185, 155, WHITE); 
 	Gui_DrawLine(185, 5, 185, 155, WHITE); 
 	
-	Gui_DrawLine(5, 80, 185, 80, GRAY2); 
-	Gui_DrawLine(5, 60, 185, 60, GRAY2);  
-	Gui_DrawLine(5, 40, 185, 40, GRAY2);  
-	Gui_DrawLine(5, 20, 185, 20, GRAY2); 
-	Gui_DrawLine(5, 100, 185, 100, GRAY2);  
-	Gui_DrawLine(5, 120, 185, 120, GRAY2); 
-	Gui_DrawLine(5, 140, 185, 140, GRAY2); 
+	Gui_DrawLine(5, 80, 185, 80, GREEN); 
+	Gui_DrawLine(5, 60, 185, 60, GREEN);  
+	Gui_DrawLine(5, 40, 185, 40, GREEN);  
+	Gui_DrawLine(5, 20, 185, 20, GREEN); 
+	Gui_DrawLine(5, 100, 185, 100, GREEN);  
+	Gui_DrawLine(5, 120, 185, 120, GREEN); 
+	Gui_DrawLine(5, 140, 185, 140, GREEN); 
 	
-	Gui_DrawLine(25, 5, 25, 155, GRAY2);
-	Gui_DrawLine(45, 5, 45, 155, GRAY2);
-	Gui_DrawLine(65, 5, 65, 155, GRAY2);
-	Gui_DrawLine(85, 5, 85, 155, GRAY2);
-	Gui_DrawLine(105, 5, 105, 155, GRAY2);
-	Gui_DrawLine(125, 5, 125, 155, GRAY2);
-	Gui_DrawLine(145, 5, 145, 155, GRAY2);
-	Gui_DrawLine(165, 5, 165, 155, GRAY2);
+	Gui_DrawLine(25, 5, 25, 155, GREEN);
+	Gui_DrawLine(45, 5, 45, 155, GREEN);
+	Gui_DrawLine(65, 5, 65, 155, GREEN);
+	Gui_DrawLine(85, 5, 85, 155, GREEN);
+	Gui_DrawLine(105, 5, 105, 155, GREEN);
+	Gui_DrawLine(125, 5, 125, 155, GREEN);
+	Gui_DrawLine(145, 5, 145, 155, GREEN);
+	Gui_DrawLine(165, 5, 165, 155, GREEN);
 	
 	DisplayButtonUp(190, 5, 215, 35);
 	Gui_DrawFont_GBK16(199, 12, WHITE, BLACK, "A");
@@ -79,42 +79,13 @@ void __mainProcess(void)
 	uint16_t i;
 	uint8_t flagRun  = 0;
 	static uint8_t count;
-//	sprintf(str,"%.4u", adcValue[0]);
-//	Gui_DrawFont_GBK16(40, 156, RED, BLACK, str);
-	
+
 	_drawValue(adcValue);
 	if(increase()== PRESS);
 	if(reduced()== PRESS);
 	if(enter() == PRESS);
-	if(set() == PRESS)
-	{
-		/*flagRun = 1;
-		Lcd_ClearRigion(5, 5, 180, 150, BLACK);
-		DisplayCaro();
-		_drawValue(adcValue);
-		buzz(1);
-		while(flagRun)
-		{
-			if(set()== PRESS)
-			{
-				Lcd_ClearRigion(5, 5, 180, 150, BLACK);// toan khuon
-				flagRun = 0;
-				buzz(1);
-			}
-			if(increase() == PRESS)
-			{
-				buzz(1);
-				Lcd_ClearRigion(5, 5, 180, 150, BLACK);// toan khuon
-				DisplayCaro();
-				count++;
-				for(i=0; i< LENGHT_ACIS_X; i++)
-				{
-					Gui_DrawLine(5+i, LENGHT_ACIS_Y- 70- adcValue[i]/22, 5+i, LENGHT_ACIS_Y- 70- adcValue[i+1]/22,RED);
-				}
-			}
-		}*/
-	}
-	Lcd_ClearRigion(5, 15, 180, 70, BLACK);// clear 1 phan
+	if(set() == PRESS);
+	Lcd_ClearRigion(7, 15, 176, 70, BLACK);// clear 1 phan
 	
 }
 /////////////////////////////////////////////////////////////////////////
