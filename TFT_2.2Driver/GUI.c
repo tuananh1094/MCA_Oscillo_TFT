@@ -250,29 +250,6 @@ void Gui_DrawFont_GBK16(u16 x, u16 y, u16 fc, u16 bc, char *s)
 	}
 }
 //////////////////////////////////////////////////////////////////////////////////////
-void Gui_DrawFont_GBK24(u16 x, u16 y, u16 fc, u16 bc, char *s)
-{
-	unsigned char i,j;
-	unsigned short k;
-
-	while(*s) 
-	{
-		k=*s;
-		if (k>32) k-=32; else k=0;
-
-		for(i=0;i<16;i++)
-		for(j=0;j<8;j++) 
-		{
-			if(asc16[k*16+i]&(0x80>>j))	
-			Gui_DrawPoint(x+j,y+i,fc);
-			else 
-			{
-				if (fc!=bc) Gui_DrawPoint(x+j,y+i,bc);
-			}
-		}
-		s++;x+=8;
-	}
-}
 //////////////////////////////////////////////////////////////////////////////////////
 void Gui_DrawFont_Num32(u16 x, u16 y, u16 fc, u16 bc, u16 num)
 {

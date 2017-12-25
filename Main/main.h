@@ -74,6 +74,8 @@ typedef unsigned int  u16;
 #define 	BUZZ_PORT			GPIOC
 #define 	BUZZ				GPIO_Pin_13
 
+#define 	PRESS					0
+#define 	NOT_PRESS				1
 
 #endif
 

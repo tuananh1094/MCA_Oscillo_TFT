@@ -9,7 +9,16 @@
 
 void displayAdvertisement(void);
 void DisplayHomeOscillo(void);
+void DisplayCaro(void);
+void _drawValue(uint16_t *value);
 void __mainProcess(void);
+
+void buzz(uint8_t bip);
+
+uint8_t set(void);
+uint8_t increase(void);
+uint8_t reduced(void);
+uint8_t enter(void);
 
 #endif
 

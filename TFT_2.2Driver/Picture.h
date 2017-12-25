@@ -688,6 +688,3 @@ const unsigned int MHG92x67[6164] ={
 
 
 
-
-
-

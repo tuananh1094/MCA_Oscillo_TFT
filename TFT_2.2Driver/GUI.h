@@ -11,7 +11,6 @@ void Gui_box2(u16 x,u16 y,u16 w,u16 h, u8 mode);
 void DisplayButtonDown(u16 x1,u16 y1,u16 x2,u16 y2);
 void DisplayButtonUp(u16 x1,u16 y1,u16 x2,u16 y2);
 void Gui_DrawFont_GBK16(u16 x, u16 y, u16 fc, u16 bc, char *s);
-void Gui_DrawFont_GBK24(u16 x, u16 y, u16 fc, u16 bc, char *s);
 void Gui_DrawFont_Num32(u16 x, u16 y, u16 fc, u16 bc, u16 num) ;
 void Gui_DisplayImage(u8 x, u8 y, u16 pixelx, u16 pixely, const unsigned int *p);
 

@@ -29,7 +29,12 @@ int main(void)
 
 	DMA_P2M_ReadHalfWord(DMA1_Channel1, adcValue, (uint32_t)&ADC1->DR, 2*LENGHT_ACIS_X);
 	
+//	displayAdvertisement();
+//	delay_ms(1000);
+//	delay_ms(1000);
+//	delay_ms(1000);
 	DisplayHomeOscillo();
+	Lcd_ClearRigion(5, 5, 180, 150, BLACK);
 	while(1)
 	{
 		__mainProcess();
