@@ -52,6 +52,9 @@ void DisplayHomeOscillo(void)
 	Gui_DrawFont_GBK16(199, 132, WHITE, BLACK, "T");
 
 	Gui_DrawFont_GBK16(5, 156, RED, BLACK, "CH1:2V");
+	
+	Lcd_SetRegion(162, 156, 220, 176);
+	Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, "18.00us");
 	//	Gui_DrawFont_GBK16(105, 156, GREEN, BLACK, "CH2:2V");
 }
 /////////////////////////////////////////////////////////////////////////
@@ -94,49 +97,49 @@ void __mainProcess(void)
 			case 1:
 			{
 				Lcd_SetRegion(162, 156, 220, 176);
-				Gui_DrawFont_GBK16(162, 156, RED, BLACK, " 1.00us");
+				Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, " 1.00us");
 				break;
 			}
 			case 2:
 			{
 				Lcd_SetRegion(162, 156, 220, 176);
-				Gui_DrawFont_GBK16(162, 156, RED, BLACK, " 1.43us");
+				Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, " 1.43us");
 				break;
 			}
 			case 3:
 			{
 				Lcd_SetRegion(162, 156, 220, 176);
-				Gui_DrawFont_GBK16(162, 156, RED, BLACK, " 1.86us");
+				Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, " 1.86us");
 				break;
 			}
 			case 4:
 			{
 				Lcd_SetRegion(162, 156, 220, 176);
-				Gui_DrawFont_GBK16(162, 156, RED, BLACK, " 2.93us");
+				Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, " 2.93us");
 				break;
 			}
 			case 5:
 			{
 				Lcd_SetRegion(162, 156, 220, 176);
-				Gui_DrawFont_GBK16(162, 156, RED, BLACK, " 3.86us");
+				Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, " 3.86us");
 				break;
 			}
 			case 6:
 			{
 				Lcd_SetRegion(162, 156, 220, 176);
-				Gui_DrawFont_GBK16(162, 156, RED, BLACK, " 4.86us");
+				Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, " 4.86us");
 				break;
 			}
 			case 7:
 			{
 				Lcd_SetRegion(162, 156, 220, 176);
-				Gui_DrawFont_GBK16(162, 156, RED, BLACK, " 6.00us");
+				Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, " 6.00us");
 				break;
 			}
 			case 0:
 			{
 				Lcd_SetRegion(162, 156, 220, 176);
-				Gui_DrawFont_GBK16(162, 156, RED, BLACK, "18.00us");
+				Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, "18.00us");
 				break;
 			}
 		}
