@@ -12,6 +12,7 @@ void displayAdvertisement(void)
 	Gui_DisplayImage(105,40,92,67, MHG92x67);
 	Gui_DisplayImage(35,40,70,67, MCA70x67);
 }
+
 /////////////////////////////////////////////////////////////////////////
 void DisplayHomeOscillo(void)
 {
@@ -76,15 +77,70 @@ void DisplayCaro(void)
 /////////////////////////////////////////////////////////////////////////
 void __mainProcess(void)
 {	
-	uint16_t i;
-	uint8_t flagRun  = 0;
-	static uint8_t count;
+	static uint8_t  timeConv = 0;
 
 	_drawValue(adcValue);
 	if(increase()== PRESS);
 	if(reduced()== PRESS);
-	if(enter() == PRESS);
 	if(set() == PRESS);
+	if(enter() == PRESS)
+	{
+		buzz(1);
+		timeConv++;
+		if(timeConv == 8) timeConv = 0;
+		ADC_ChannelConfig(ADC1, ADC_Channel_0, (uint32_t)timeConv);
+		switch(timeConv)
+		{
+			case 1:
+			{
+				Lcd_SetRegion(162, 156, 220, 176);
+				Gui_DrawFont_GBK16(162, 156, RED, BLACK, " 1.00us");
+				break;
+			}
+			case 2:
+			{
+				Lcd_SetRegion(162, 156, 220, 176);
+				Gui_DrawFont_GBK16(162, 156, RED, BLACK, " 1.43us");
+				break;
+			}
+			case 3:
+			{
+				Lcd_SetRegion(162, 156, 220, 176);
+				Gui_DrawFont_GBK16(162, 156, RED, BLACK, " 1.86us");
+				break;
+			}
+			case 4:
+			{
+				Lcd_SetRegion(162, 156, 220, 176);
+				Gui_DrawFont_GBK16(162, 156, RED, BLACK, " 2.93us");
+				break;
+			}
+			case 5:
+			{
+				Lcd_SetRegion(162, 156, 220, 176);
+				Gui_DrawFont_GBK16(162, 156, RED, BLACK, " 3.86us");
+				break;
+			}
+			case 6:
+			{
+				Lcd_SetRegion(162, 156, 220, 176);
+				Gui_DrawFont_GBK16(162, 156, RED, BLACK, " 4.86us");
+				break;
+			}
+			case 7:
+			{
+				Lcd_SetRegion(162, 156, 220, 176);
+				Gui_DrawFont_GBK16(162, 156, RED, BLACK, " 6.00us");
+				break;
+			}
+			case 0:
+			{
+				Lcd_SetRegion(162, 156, 220, 176);
+				Gui_DrawFont_GBK16(162, 156, RED, BLACK, "18.00us");
+				break;
+			}
+		}
+	}
 	Lcd_ClearRigion(7, 15, 176, 70, BLACK);// clear 1 phan
 	
 }
