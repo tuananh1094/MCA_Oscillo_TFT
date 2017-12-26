@@ -99,15 +99,14 @@ void TIM3_TimeBaseInit(void)
 	NVIC_Init(&NVIC_User);												// Enable NVIC
 	
 	TIM_TimeBaseInitStruct.TIM_CounterMode = TIM_CounterMode_Up;
-	TIM_TimeBaseInitStruct.TIM_Prescaler = 48000;							// Base count = 1us
+	TIM_TimeBaseInitStruct.TIM_Prescaler = 48;							// Base count = 1us
 	TIM_TimeBaseInitStruct.TIM_ClockDivision = TIM_CKD_DIV1;
-	TIM_TimeBaseInitStruct.TIM_Period = 500;							// after 10ms counter will be overflow
-	//TIM_TimeBaseInitStruct.TIM_RepetitionCounter = 0;					// Only in TIMER1
+	TIM_TimeBaseInitStruct.TIM_Period = 2000;							// after 10ms counter will be overflow
 	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseInitStruct);					// Set up timer
 										
-	TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);							// Enable Interrupts TIM1
+	TIM_ITConfig(TIM3, TIM_IT_Update, DISABLE);							// Enable Interrupts TIM1
 	
-	TIM_Cmd(TIM3, ENABLE);
+	TIM_Cmd(TIM3, DISABLE);
 }
 
 

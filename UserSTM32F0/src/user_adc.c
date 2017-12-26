@@ -1,24 +1,24 @@
 #include "user_adc.h"
 
-static uint16_t adc_value;
+//static uint16_t adc_value;
 
-void ADC1_IRQHandler(void)
-{
-	GPIO_TogglePin(GPIOB, GPIO_Pin_13);
-	if(ADC_GetITStatus(ADC1, ADC_FLAG_EOC) != RESET)
-	{
-		ADC_ClearITPendingBit(ADC1, ADC_FLAG_EOC);
-		adc_value = ADC_GetConversionValue(ADC1);
-	}
-}
+//void ADC1_IRQHandler(void)
+//{
+//	GPIO_TogglePin(GPIOB, GPIO_Pin_13);
+//	if(ADC_GetITStatus(ADC1, ADC_FLAG_EOC) != RESET)
+//	{
+//		ADC_ClearITPendingBit(ADC1, ADC_FLAG_EOC);
+//		adc_value = ADC_GetConversionValue(ADC1);
+//	}
+//}
 
-uint16_t ADC_GetConvertedValue(void)
-{
-	uint16_t tmpADC;
-	
-	tmpADC = adc_value;
-	return tmpADC;
-}
+//uint16_t ADC_GetConvertedValue(void)
+//{
+//	uint16_t tmpADC;
+//	
+//	tmpADC = adc_value;
+//	return tmpADC;
+//}
 
 void ADC_Configuration(void)
 {

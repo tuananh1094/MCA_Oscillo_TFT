@@ -76,6 +76,7 @@ typedef unsigned int  u16;
 
 #define 	PRESS					0
 #define 	NOT_PRESS				1
+#define 	PRESS_TWO				2
 
 #endif
 
