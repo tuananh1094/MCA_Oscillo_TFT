@@ -51,7 +51,7 @@ void ADC_Configuration(void)
 	ADC_Initstructure.ADC_ScanDirection = ADC_ScanDirection_Upward;
 	ADC_Init(ADC1, &ADC_Initstructure);
 	
-	ADC_ChannelConfig(ADC1, ADC_Channel_0, ADC_SampleTime_239_5Cycles);
+	ADC_ChannelConfig(ADC1, ADC_Channel_0, ADC_SampleTime_1_5Cycles);
 	ADC_GetCalibrationFactor(ADC1);
 //	ADC_ITConfig(ADC1, ADC_IT_EOC, ENABLE);						// IT Config
 
@@ -92,7 +92,7 @@ void ADC_SingerConfiguration(void)
 	ADC_Initstructure.ADC_ScanDirection = ADC_ScanDirection_Upward;
 	ADC_Init(ADC1, &ADC_Initstructure);
 	
-	ADC_ChannelConfig(ADC1, ADC_Channel_0, ADC_SampleTime_239_5Cycles);
+	ADC_ChannelConfig(ADC1, ADC_Channel_0, ADC_SampleTime_1_5Cycles);
 	ADC_GetCalibrationFactor(ADC1);
 	
 

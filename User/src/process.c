@@ -4,6 +4,11 @@
 char str[20];
 uint16_t adcValue1[2*LENGHT_ACIS_X], z;
 extern uint16_t adcValue[];
+
+uint16_t IC1ReadValue1 = 0, IC1ReadValue2 = 0;
+uint16_t CaptureNumber = 0;
+uint32_t Capture;
+uint32_t TIM17Freq;
 /////////////////////////////////////////////////////////////////////////
 void TIM3_IRQHandler(void)
 {
@@ -19,13 +24,13 @@ void TIM3_IRQHandler(void)
 	}
 }
 /////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
 void displayAdvertisement(void)
 {
 	Lcd_Clear(WHITE);
-	Gui_DrawFont_GBK16(85, 110, BLACK, WHITE, "Mr.Anh");
-	Gui_DrawFont_GBK16(55, 130, BLUE, WHITE, "0167.913.2684");
-	Gui_DisplayImage(105,40,92,67, MHG92x67);
-	Gui_DisplayImage(35,40,70,67, MCA70x67);
+	Gui_DrawFont_GBK16(85, 90, BLACK, WHITE, "Mr.Anh");
+	Gui_DrawFont_GBK16(55, 110, BLUE, WHITE, "0167.913.2684");
+	Gui_DisplayImage(70,20,70,67, MCA70x67);
 }
 
 /////////////////////////////////////////////////////////////////////////
@@ -69,7 +74,7 @@ void DisplayHomeOscillo(void)
 	Gui_DrawFont_GBK16(5, 156, RED, BLACK, "CH1:2V");
 	
 	Lcd_SetRegion(162, 156, 220, 176);
-	Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, "18.00us");
+	Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, " 1.00us");
 	//	Gui_DrawFont_GBK16(105, 156, GREEN, BLACK, "CH2:2V");
 }
 /////////////////////////////////////////////////////////////////////////
@@ -121,6 +126,8 @@ void __mainProcess(void)
 				timeHoldEnter = 0;
 				DisplayButtonUp(190, 125, 215, 155);
 				Gui_DrawFont_GBK16(199, 132, WHITE, BLACK, "T");
+				Lcd_SetRegion(162, 156, 220, 176);
+				Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, "   01ms");
 				buzz(2);
 				ADC_SingerConfiguration();
 				TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);							
@@ -135,7 +142,7 @@ void __mainProcess(void)
 				buzz(1);
 				timeConv++;
 				if(timeConv == 8) timeConv = 0;
-				_chooseHighSampleTime(timeConv);
+				_selectHighSampleTime(timeConv);
 			}
 		}
 	}
@@ -244,58 +251,58 @@ void _drawValue(uint16_t *value)
 	uint8_t i;
 	for(i=0; i< LENGHT_ACIS_X; i++)
 	{
-		Gui_DrawLine(5+i, LENGHT_ACIS_Y- 70- value[i]/22, 5+i, LENGHT_ACIS_Y- 70- value[i+1]/22,RED);
+		Gui_DrawLine(5+i, LENGHT_ACIS_Y- 70- value[i]/29, 5+i, LENGHT_ACIS_Y- 70- value[i+1]/29,RED);
 	}
 }
 /////////////////////////////////////////////////////////////////////////
-void _chooseHighSampleTime(uint8_t sampleTime)
+void _selectHighSampleTime(uint8_t sampleTime)
 {
 	ADC_ChannelConfig(ADC1, ADC_Channel_0, (uint32_t)sampleTime);
 	switch(sampleTime)
 	{
-		case 1:
+		case 0:
 		{
 			Lcd_SetRegion(162, 156, 220, 176);
 			Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, " 1.00us");
 			break;
 		}
-		case 2:
+		case 1:
 		{
 			Lcd_SetRegion(162, 156, 220, 176);
 			Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, " 1.43us");
 			break;
 		}
-		case 3:
+		case 2:
 		{
 			Lcd_SetRegion(162, 156, 220, 176);
 			Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, " 1.86us");
 			break;
 		}
-		case 4:
+		case 3:
 		{
 			Lcd_SetRegion(162, 156, 220, 176);
 			Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, " 2.93us");
 			break;
 		}
-		case 5:
+		case 4:
 		{
 			Lcd_SetRegion(162, 156, 220, 176);
 			Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, " 3.86us");
 			break;
 		}
-		case 6:
+		case 5:
 		{
 			Lcd_SetRegion(162, 156, 220, 176);
 			Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, " 4.86us");
 			break;
 		}
-		case 7:
+		case 6:
 		{
 			Lcd_SetRegion(162, 156, 220, 176);
 			Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, " 6.00us");
 			break;
 		}
-		case 0:
+		case 7:
 		{
 			Lcd_SetRegion(162, 156, 220, 176);
 			Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, "18.00us");
@@ -305,15 +312,125 @@ void _chooseHighSampleTime(uint8_t sampleTime)
 	///
 }
 /////////////////////////////////////////////////////////////////////////
+void _selectLowSampleTime(uint8_t sampleTime)
+{
+	TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStruct;
+	
+	TIM_ITConfig(TIM3, TIM_IT_Update, DISABLE);							
+	TIM_Cmd(TIM3, DISABLE);
+
+	switch(sampleTime)
+	{
+		case 0:
+		{
+			TIM_TimeBaseInitStruct.TIM_Period = 1000;						
+			TIM_TimeBaseInit(TIM3, &TIM_TimeBaseInitStruct);
+			Lcd_SetRegion(162, 156, 220, 176);
+			Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, "   01ms");
+			break;
+		}
+		case 1:
+		{
+			TIM_TimeBaseInitStruct.TIM_Period = 2000;						
+			TIM_TimeBaseInit(TIM3, &TIM_TimeBaseInitStruct);
+			Lcd_SetRegion(162, 156, 220, 176);
+			Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, "   02ms");
+			break;
+		}
+		case 2:
+		{
+			TIM_TimeBaseInitStruct.TIM_Period = 5000;						
+			TIM_TimeBaseInit(TIM3, &TIM_TimeBaseInitStruct);
+			Lcd_SetRegion(162, 156, 220, 176);
+			Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, "   05ms");
+			break;
+		}
+		case 3:
+		{
+			TIM_TimeBaseInitStruct.TIM_Period = 10000;						
+			TIM_TimeBaseInit(TIM3, &TIM_TimeBaseInitStruct);
+			Lcd_SetRegion(162, 156, 220, 176);
+			Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, "   10ms");
+			break;
+		}
+		case 4:
+		{
+			TIM_TimeBaseInitStruct.TIM_Period = 20000;						
+			TIM_TimeBaseInit(TIM3, &TIM_TimeBaseInitStruct);
+			Lcd_SetRegion(162, 156, 220, 176);
+			Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, "   20ms");
+			break;
+		}
+		case 5:
+		{
+			TIM_TimeBaseInitStruct.TIM_Period = 200;						
+			TIM_TimeBaseInit(TIM3, &TIM_TimeBaseInitStruct);
+			Lcd_SetRegion(162, 156, 220, 176);
+			Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, "  200us");
+			break;
+		}
+		case 6:
+		{
+			TIM_TimeBaseInitStruct.TIM_Period = 20;						
+			TIM_TimeBaseInit(TIM3, &TIM_TimeBaseInitStruct);
+			Lcd_SetRegion(162, 156, 220, 176);
+			Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, "   20us");
+			break;
+		}
+	}
+	TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);							
+	TIM_Cmd(TIM3, ENABLE);
+}
+/////////////////////////////////////////////////////////////////////////
 void _chooseLowSampleTime(void)
 {
 	uint8_t flagRun = 1;
+	static uint8_t timeHoldEnter, timeConv = 0;
 	while(flagRun)
 	{
 		_drawValue(adcValue1);
 		Lcd_ClearRigion(7, 15, 176, 70, BLACK);// clear 1 phan
 		
-		if(enter() == PRESS);
+		if(GPIO_ReadInputDataBit(BUTTON_PORT, BUTTON1) == PRESS)
+		{
+			delay_ms(20);
+			if(GPIO_ReadInputDataBit(BUTTON_PORT, BUTTON1) == PRESS)
+			{
+				while(GPIO_ReadInputDataBit(BUTTON_PORT, BUTTON1) == PRESS)
+				{
+					Lcd_SetRegion(190, 125, 215, 155);
+					DisplayButtonDown(190, 125, 215, 155);
+					Gui_DrawFont_GBK16(199, 132, GREEN, BLACK, "T");
+					delay_ms(100);
+					timeHoldEnter++;
+				}
+				if(timeHoldEnter>=15)			// chon sample time tan so thap
+				{
+					timeHoldEnter = 0;
+					DisplayButtonUp(190, 125, 215, 155);
+					Gui_DrawFont_GBK16(199, 132, WHITE, BLACK, "T");
+					Lcd_SetRegion(162, 156, 220, 176);
+					Gui_DrawFont_GBK16(162, 156, GREEN, BLACK, " 1.00us");
+					timeConv = 0;
+					buzz(2);
+					TIM_ITConfig(TIM3, TIM_IT_Update, DISABLE);							
+					TIM_Cmd(TIM3, DISABLE);
+					ADC_Configuration();
+					DMA_P2M_ReadHalfWord(DMA1_Channel1, adcValue, (uint32_t)&ADC1->DR, 2*LENGHT_ACIS_X);
+					flagRun = 0;
+				}
+				else							// chon sample time tan so cao
+				{
+					timeHoldEnter = 0;
+					DisplayButtonUp(190, 125, 215, 155);
+					Gui_DrawFont_GBK16(199, 132, WHITE, BLACK, "T");
+					buzz(1);
+					timeConv++;
+					if(timeConv == 7) timeConv = 0;
+					_selectLowSampleTime(timeConv);
+				}
+			}
+		}
 	}
 }
 /////////////////////////////////////////////////////////////////////////

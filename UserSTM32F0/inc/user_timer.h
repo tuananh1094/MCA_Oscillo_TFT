@@ -18,5 +18,6 @@ void TIM3_TimeBaseInit(void);
 void TIM14_TimeBaseInit(void);
 void TIM1_InputCaptureConfig(void);
 void TIM1_OutputCompareConfig(uint16_t Period);
+void TIM17_InputCaptureConfig(void);
 
 #endif

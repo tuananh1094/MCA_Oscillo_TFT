@@ -101,7 +101,7 @@ void TIM3_TimeBaseInit(void)
 	TIM_TimeBaseInitStruct.TIM_CounterMode = TIM_CounterMode_Up;
 	TIM_TimeBaseInitStruct.TIM_Prescaler = 48;							// Base count = 1us
 	TIM_TimeBaseInitStruct.TIM_ClockDivision = TIM_CKD_DIV1;
-	TIM_TimeBaseInitStruct.TIM_Period = 2000;							// after 10ms counter will be overflow
+	TIM_TimeBaseInitStruct.TIM_Period = 5000;							// after 10ms counter will be overflow
 	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseInitStruct);					// Set up timer
 										
 	TIM_ITConfig(TIM3, TIM_IT_Update, DISABLE);							// Enable Interrupts TIM1
@@ -136,4 +136,38 @@ void TIM14_TimeBaseInit(void)
 	TIM_ITConfig(TIM14, TIM_IT_Update, ENABLE);							// Enable Interrupts TIM14
 	
 	TIM_Cmd(TIM14, ENABLE);
+}
+
+
+////////////////////////////////////////////////////////////////////////
+void TIM17_InputCaptureConfig(void)
+{
+	TIM_TimeBaseInitTypeDef 	TIM_BaseStruct;
+	TIM_ICInitTypeDef			TIM_ICInitStruct;
+	NVIC_InitTypeDef			NVIC_InitStruct; 
+	
+	//TIM_DeInit(TIM1);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM17, ENABLE);
+	
+	TIM_BaseStruct.TIM_CounterMode = TIM_CounterMode_Up;
+	TIM_BaseStruct.TIM_Prescaler = 0;
+	TIM_BaseStruct.TIM_ClockDivision = 0;
+	TIM_BaseStruct.TIM_Period = 0xFFFF;
+	TIM_TimeBaseInit(TIM17, &TIM_BaseStruct);						// Configure Time Base
+	
+	TIM_ICInitStruct.TIM_Channel = TIM_Channel_1;		
+	TIM_ICInitStruct.TIM_ICFilter = 0x0;
+	TIM_ICInitStruct.TIM_ICPrescaler = TIM_ICPSC_DIV1;
+	TIM_ICInitStruct.TIM_ICPolarity = TIM_ICPolarity_Rising;
+	TIM_ICInitStruct.TIM_ICSelection = TIM_ICSelection_DirectTI;
+	TIM_ICInit(TIM17, &TIM_ICInitStruct);							// Configure main input capture
+	
+	NVIC_InitStruct.NVIC_IRQChannel = TIM17_IRQn;
+	NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_InitStruct.NVIC_IRQChannelPriority = 2;
+	NVIC_Init(&NVIC_InitStruct);									// Configure NVIC for interrupt
+	
+	TIM_ITConfig(TIM17, TIM_IT_CC1, ENABLE);
+	
+	TIM_Cmd(TIM17, ENABLE);
 }

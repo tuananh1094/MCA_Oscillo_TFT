@@ -10,8 +10,10 @@
 void displayAdvertisement(void);
 void DisplayHomeOscillo(void);
 void DisplayCaro(void);
+
 void _drawValue(uint16_t *value);
-void _chooseHighSampleTime(uint8_t sampleTime);
+void _selectHighSampleTime(uint8_t sampleTime);
+void _selectLowSampleTime(uint8_t sampleTime);
 void _chooseLowSampleTime(void);
 void __mainProcess(void);
 

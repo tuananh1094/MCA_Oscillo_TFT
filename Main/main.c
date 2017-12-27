@@ -11,7 +11,7 @@
 #include "main.h"
 
 uint16_t adcValue[2*LENGHT_ACIS_X];
-
+int d;
 
 
 int main(void)
@@ -32,25 +32,20 @@ int main(void)
 	Lcd_Init();
 	LCD_LED_SET;
 
-//	ADC_SingerConfiguration();
-//	Lcd_Clear(BLACK);
-	
-//	displayAdvertisement();
-//	delay_ms(1000);
-//	delay_ms(1000);
-//	delay_ms(1000);
+	displayAdvertisement();
+	for(d=10;d<=210;d++)
+	{
+		Lcd_SetRegion(d, 140, d, 160);
+		Gui_DrawLine(d, 140, d, 160, BLUE);
+		delay_ms(20);
+	}
+	 	
 	DisplayHomeOscillo();
 	Lcd_ClearRigion(7, 7, 176, 146, BLACK);
 	
 	while(1)
 	{
 		__mainProcess();
-
-//		adcValue1 = ADC_GetConversionValue(ADC1);
-//		GPIO_TogglePin(LED_PORT, LED2);
-//		sprintf(str1,"CH1: %.4u", adcValue1);
-//		Gui_DrawFont_GBK16(5, 5, RED, BLACK, str1);
-//		delay_ms(300);
 	}
 }
 
